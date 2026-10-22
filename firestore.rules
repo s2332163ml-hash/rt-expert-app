@@ -1,0 +1,8 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 専門家用アプリは閲覧のみ（ログイン済みユーザー）
+    match /facilities/{id}    { allow read: if request.auth != null; allow write: if false; }
+    match /measurements/{id}  { allow read: if request.auth != null; allow write: if false; }
+  }
+}
